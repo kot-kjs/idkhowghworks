@@ -114,3 +114,9 @@ def month_length(month: str, year: str):
         month_len = 30
 
     return month_len
+
+
+def int_to_pos(int_) -> tuple:  # for easier widget grid management
+    x = int_ % 3
+    y = int(int_ / 3)
+    return (x, y)
