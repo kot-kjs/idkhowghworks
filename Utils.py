@@ -51,7 +51,7 @@ def _dev_PopulateHabit(db, h_name: str, year: str, month: str):
 
 def gen_db(db: DataBase, hnames: list, year):
     for i, name in enumerate(hnames):
-        db.AddHabit(name, "", "", "", "", i)
+        db.AddHabit(name, "", "", "", "", i, 0)
 
     for hname in db.get_habits_aslist():
         _dev_PopulateHabit(db, hname, year, "")

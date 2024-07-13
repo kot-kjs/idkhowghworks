@@ -68,24 +68,28 @@ def main():
     # h_tag = "idk"
     # db.AddHabit(h_name, h_unit, h_question, h_desc, h_tag, )
     # _dev_PopulateHabit(db, h_name, "2024", "")
-    gen_db(
-        db,
-        [
-            "building",
-            "crying",
-            "eating",
-            "shitting",
-            "swearing",
-            "running",
-            "writing",
-            "meditating",
-            "studying",
-        ],
-        "2024",
-    )
+    # gen_db(
+    #     db,
+    #     [
+    #         "building",
+    #         "crying",
+    #         "eating",
+    #         "shitting",
+    #         "swearing",
+    #         "running",
+    #         "writing",
+    #         "meditating",
+    #         "studying",
+    #     ],
+    #     "2024",
+    # )
 
     # db.delete_habit("swearing")
     # db.modify_habit_param("writing", "description", "Only rhymed writing counts")
+
+    # h = Habit(db, "crying")
+    db.delete_entry("swearing", "2024-07-13")
+    # add_heatmap(h, "2024")
 
 
 main()

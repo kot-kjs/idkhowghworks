@@ -15,7 +15,6 @@ db = DataBase()
 
 
 App = App_(db)
-App._fg_color = "#2B2B2B"
 
 
 def open_add_habit():
@@ -44,7 +43,9 @@ def open_add_habit():
     name_frame = LabelEntry(master=win_add_habit, text="Name")
     tag_frame = LabelEntry(master=win_add_habit, text="Tag")
     unit_frame = LabelEntry(
-        master=win_add_habit, text="Unit (Input 'bool' to create a binary habit)"
+        master=win_add_habit,
+        text="Unit (Input 'bool' to create a binary habit)",
+        sticky="w",
     )
     question_frame = LabelEntry(master=win_add_habit, text="Question")
     desc_frame = LabelEntry(master=win_add_habit, text="Description/Notes")
@@ -71,7 +72,7 @@ def open_add_habit():
 buttonAddHabit = ControlButton(
     master=App.controlsFrame, label="Add habit", command=open_add_habit
 )
-buttonAddHabit.grid(row=0, column=0)
+buttonAddHabit.grid(row=0, column=0, pady=100, sticky="w")
 
 
 # loading habits from the db to the UI
@@ -79,4 +80,6 @@ buttonAddHabit.grid(row=0, column=0)
 
 App.refresh()
 set_appearance_mode("dark")
+App._fg_color = "#2B2B2B"
+
 App.mainloop()

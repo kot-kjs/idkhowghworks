@@ -9,7 +9,14 @@ class DataBase:
 
     # To make the habit boolean just set unit to "bool"
     def AddHabit(
-        self, table_name: str, unit: str, question: str, desc: str, tag: str, pos: int
+        self,
+        table_name: str,
+        unit: str,
+        question: str,
+        desc: str,
+        tag: str,
+        pos: int,
+        daily_goal: int,
     ) -> bool:
         if self.habit_exists(table_name):
             return False
@@ -23,6 +30,7 @@ class DataBase:
                     question VARCHAR(255),
                     description TEXT,
                     pos INT,
+                    daily_goal INT,
                     created DATE)
                     
                     """
@@ -41,7 +49,7 @@ class DataBase:
         # Inserting habit parameters into the first table
         try:
             self.c.execute(
-                f"""INSERT INTO '{table_name}' VALUES ('{table_name}','{tag}', '{unit}', '{question}', '{desc}', '{pos}', CURRENT_DATE)"""
+                f"""INSERT INTO '{table_name}' VALUES ('{table_name}','{tag}', '{unit}', '{question}', '{desc}', '{pos}','{daily_goal}', CURRENT_DATE)"""
             )
         except Exception as e:
             print(e)
@@ -128,6 +136,14 @@ class DataBase:
         xd = self.c.fetchone()[0]
         return xd
 
+    def get_habit_entry_value(self, h_name, entry_date):
+        self.c.execute(
+            f"""SELECT value FROM '{h_name}_logs' WHERE day=?""",
+            (entry_date,),
+        )
+        xd = self.c.fetchone()[0]
+        return xd
+
     def habit_has_entry(self, h_name, entry_name, entry_val) -> bool:
         # append _logs to reference the table in which entries for the habit are stored
         h_name = f"{h_name}_logs"
@@ -172,5 +188,13 @@ class DataBase:
         except Exception as e:
             print(e)
         finally:
-            print("did well i guess")
+            # print("did well i guess")
+            self.db.commit()
+
+    def delete_entry(self, h_name, date):
+        try:
+            self.c.execute(f"DELETE FROM '{h_name}_logs' WHERE day = ?", (date,))
+        except Exception as e:
+            print(e)
+        finally:
             self.db.commit()

@@ -43,11 +43,13 @@ class Habit:
         self.question = data[3]
         self.desc = data[4]
         self.pos = data[5]
-        self.created = data[6]
+        self.goal = data[6]
+        self.created = data[7]
 
         db.c.execute(f"""SELECT * FROM '{self.name}_logs'""")
         data = db.c.fetchall()
 
+        self.data = []
         for entry in data:
             self.data.append(Day(_date=entry[0], _value=entry[1], _note=entry[2]))
 
